@@ -79,22 +79,22 @@ class YeppChatApiTest extends TestCase
         $this->actingAs($this->makeStudent(), 'api')
             ->postJson('api/yepp-chat/' . $this->makeLesson()->getKey(), ['question' => null])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['question' => 'is required.']);
+            ->assertJsonValidationErrors(['question' => 'is required']);
 
         $this->actingAs($this->makeStudent(), 'api')
             ->postJson('api/yepp-chat/' . $this->makeLesson()->getKey(), ['question' => ''])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['question' => 'is required.']);
+            ->assertJsonValidationErrors(['question' => 'is required']);
 
         $this->actingAs($this->makeStudent(), 'api')
             ->postJson('api/yepp-chat/' . $this->makeLesson()->getKey(), ['question' => '123'])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['question' => 'least 5 characters.']);
+            ->assertJsonValidationErrors(['question' => 'least 5 characters']);
 
         $this->actingAs($this->makeStudent(), 'api')
             ->postJson('api/yepp-chat/' . $this->makeLesson()->getKey(), ['question' => $this->faker->words(5000, true)])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['question' => 'must not be greater than 5000 characters.']);
+            ->assertJsonValidationErrors(['question' => 'must not be greater than 5000 characters']);
     }
 
     public function testGetYeppChaForbidden(): void
