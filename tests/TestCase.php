@@ -5,6 +5,7 @@ namespace EscolaLms\YeppChat\Tests;
 use EscolaLms\Auth\EscolaLmsAuthServiceProvider;
 use EscolaLms\Auth\Models\User;
 use EscolaLms\Core\Tests\TestCase as CoreTestCase;
+use EscolaLms\ModelFields\ModelFieldsServiceProvider;
 use EscolaLms\YeppChat\EscolaLmsYeppChatServiceProvider;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Passport\PassportServiceProvider;
@@ -21,7 +22,8 @@ class TestCase extends CoreTestCase
             PassportServiceProvider::class,
             PermissionServiceProvider::class,
             EscolaLmsAuthServiceProvider::class,
-            EscolaLmsYeppChatServiceProvider::class
+            EscolaLmsYeppChatServiceProvider::class,
+            ModelFieldsServiceProvider::class,
         ];
     }
 

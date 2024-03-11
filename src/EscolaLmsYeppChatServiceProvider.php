@@ -3,7 +3,11 @@
 namespace EscolaLms\YeppChat;
 
 use EscolaLms\Auth\EscolaLmsAuthServiceProvider;
+use EscolaLms\ModelFields\ModelFieldsServiceProvider;
 use EscolaLms\Settings\EscolaLmsSettingsServiceProvider;
+use EscolaLms\YeppChat\Providers\SettingsServiceProvider;
+use EscolaLms\YeppChat\Services\YeppChatService;
+use EscolaLms\YeppChat\Services\Contracts\YeppChatServiceContract;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -15,7 +19,9 @@ class EscolaLmsYeppChatServiceProvider extends ServiceProvider
 
     public const REPOSITORIES = [];
 
-    public const SERVICES = [];
+    public const SERVICES = [
+        YeppChatServiceContract::class => YeppChatService::class,
+    ];
 
     public $singletons = self::SERVICES + self::REPOSITORIES;
 
@@ -25,6 +31,8 @@ class EscolaLmsYeppChatServiceProvider extends ServiceProvider
 
         $this->app->register(EscolaLmsSettingsServiceProvider::class);
         $this->app->register(EscolaLmsAuthServiceProvider::class);
+        $this->app->register(SettingsServiceProvider::class);
+        $this->app->register(ModelFieldsServiceProvider::class);
     }
 
     public function boot()
