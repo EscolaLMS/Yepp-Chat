@@ -38,7 +38,7 @@ jobs:
         run: vendor/bin/testbench config:clear
 
       - name: Publish things
-        run: vendor/bin/testbench migrate:fresh
+        run: php -d memory_limit=-1 vendor/bin/testbench migrate:fresh
 
       - name: Run tests
         run: vendor/bin/phpunit

@@ -17,6 +17,8 @@
     </include>
   </coverage>
   <php>
+    <ini name="memory_limit" value="-1" />
+
     <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
     <env name="APP_DEBUG" value="true"/>
     <env name="DB_CONNECTION" value="pgsql"/>
