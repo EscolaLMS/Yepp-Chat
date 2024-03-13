@@ -32,7 +32,7 @@ trait YeppChatTesting
     {
         return [
             'ans' => $this->faker->words(5, true),
-            'conversation_id' => $this->faker->uuid,
+            'conversationId' => $this->faker->uuid,
         ];
     }
 }
