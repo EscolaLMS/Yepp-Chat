@@ -35,21 +35,17 @@ class YeppChatService implements YeppChatServiceContract
 
         try {
             $response = $this->getYeppChatHttpClient()
-                ->post('/chat', [
-                    'q' => $question,
-                    'assistantId' => $assistantId,
-                    'conversationId' => $conversationId
-                ])
+                ->post('/chat', $this->getYeppChatBody($question, $assistantId, $conversationId))
                 ->throw()
                 ->object();
         } catch (RequestException $requestException) {
             throw throw new YeppChatServiceException($requestException->getMessage(), $requestException->getCode());
         }
 
-        return new ConversationMessage($response->ans, $conversationId);
+        return new ConversationMessage($response->ans, $response->conversationId);
     }
 
-    public function getYeppChatHttpClient(): PendingRequest
+    protected function getYeppChatHttpClient(): PendingRequest
     {
         $http = Http::baseUrl(config(EscolaLmsYeppChatServiceProvider::CONFIG_KEY . '.url'));
 
@@ -58,5 +54,19 @@ class YeppChatService implements YeppChatServiceContract
         }
 
         return $http;
+    }
+
+    protected function getYeppChatBody(string $question, string $assistantId, ?string $conversationId): array
+    {
+        $body = [
+            'q' => $question,
+            'assistantId' => $assistantId,
+        ];
+
+        if ($conversationId) {
+            $body += ['conversationId' => $conversationId];
+        }
+
+        return $body;
     }
 }
